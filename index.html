@@ -6,7 +6,7 @@
 <title>Context Engineering — Cost Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F4EFE4;
@@ -35,12 +35,18 @@
   html, body {
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-family: 'Instrument Sans', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+  }
+
+  html[lang="ko"] body,
+  html[lang="ja"] body,
+  html[lang="zh-CN"] body {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', 'Instrument Sans', system-ui, sans-serif;
   }
 
   body::before {
@@ -77,11 +83,17 @@
   header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--line);
     margin-bottom: 56px;
     gap: 24px;
+    flex-wrap: wrap;
+  }
+  .header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
     flex-wrap: wrap;
   }
   .brand {
@@ -105,6 +117,32 @@
     color: var(--ink-mute);
     text-transform: uppercase;
   }
+  .lang-switcher {
+    position: relative;
+  }
+  .lang-switcher select {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 7px 28px 7px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2357534E' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: all 0.15s;
+  }
+  .lang-switcher select:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
   /* ─── Hero ────────────────────────────────────────────── */
   .hero {
@@ -121,13 +159,6 @@
     margin-bottom: 32px;
   }
   .hero-kicker span { color: var(--ink-mute); }
-  .hero-label {
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 18px;
-    color: var(--ink-soft);
-    margin-bottom: 18px;
-    font-weight: 400;
-  }
   .hero-amount {
     font-family: 'Fraunces', serif;
     font-weight: 400;
@@ -160,10 +191,15 @@
     font-family: 'Fraunces', serif;
     font-size: clamp(18px, 2.2vw, 24px);
     color: var(--ink);
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 auto;
     line-height: 1.4;
     font-weight: 400;
+  }
+  html[lang="ko"] .hero-caption,
+  html[lang="ja"] .hero-caption,
+  html[lang="zh-CN"] .hero-caption {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
   }
   .hero-caption em {
     font-style: italic;
@@ -229,6 +265,11 @@
     font-weight: 500;
     letter-spacing: -0.01em;
   }
+  html[lang="ko"] .inputs-subtitle,
+  html[lang="ja"] .inputs-subtitle,
+  html[lang="zh-CN"] .inputs-subtitle {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
+  }
 
   .field {
     margin-bottom: 22px;
@@ -238,6 +279,7 @@
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 8px;
+    gap: 10px;
   }
   .field-name {
     font-size: 13px;
@@ -249,12 +291,14 @@
     font-size: 13px;
     color: var(--accent);
     font-weight: 500;
+    white-space: nowrap;
   }
   .field-hint {
     font-size: 11px;
     color: var(--ink-mute);
     margin-top: 4px;
     font-style: italic;
+    line-height: 1.45;
   }
 
   select, input[type="range"], input[type="number"] {
@@ -407,6 +451,11 @@
     letter-spacing: -0.01em;
     line-height: 1.25;
   }
+  html[lang="ko"] .scenario-name,
+  html[lang="ja"] .scenario-name,
+  html[lang="zh-CN"] .scenario-name {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
+  }
   .scenario-name em {
     font-style: italic;
     color: var(--accent);
@@ -415,7 +464,8 @@
     font-size: 14px;
     color: var(--ink-soft);
     margin-top: 6px;
-    max-width: 380px;
+    max-width: 420px;
+    line-height: 1.5;
   }
 
   .scenario-cost {
@@ -480,6 +530,7 @@
     letter-spacing: 0.08em;
     margin-bottom: 3px;
     font-size: 10px;
+    line-height: 1.4;
   }
   .breakdown-val {
     color: var(--ink);
@@ -549,6 +600,12 @@
     margin-bottom: 14px;
     color: var(--ink);
   }
+  html[lang="ko"] .footnote-title,
+  html[lang="ja"] .footnote-title,
+  html[lang="zh-CN"] .footnote-title {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
+    font-style: normal;
+  }
   .footnote-body {
     font-size: 13px;
     color: var(--ink-soft);
@@ -603,13 +660,308 @@
   .pricing-table td:first-child { font-weight: 500; }
   .pricing-table tr:last-child td { border-bottom: none; }
 
+  /* ─── Scenario D (Maximum) ────────────────────────────── */
+  .scenario.maxed {
+    border: 1px solid var(--accent-dark);
+    padding-top: 38px;
+    background: linear-gradient(180deg, #FFFBF5 0%, #FFFFFF 100%);
+    box-shadow: 0 24px 70px -20px rgba(180, 83, 9, 0.25), 0 10px 28px -10px rgba(28, 25, 23, 0.12);
+  }
+  .scenario.maxed::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #EAB308 0%, #D97706 40%, #9A3412 70%, #047857 100%);
+  }
+  .scenario.maxed .scenario-tag { 
+    background: linear-gradient(135deg, #FEF3C7, #FED7AA);
+    color: var(--accent-dark);
+  }
+  .scenario.maxed .cost-amount {
+    background: linear-gradient(135deg, #EAB308 0%, #D97706 40%, #047857 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    font-size: 52px;
+  }
+  .scenario.maxed .scenario-bar-fill {
+    background: linear-gradient(90deg, #EAB308, #D97706, #047857);
+  }
+
+  /* ─── Save More Section ────────────────────────────────── */
+  .save-more {
+    margin: 0 0 60px;
+    padding: 48px 40px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FBF7ED 100%);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .save-more::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--grad-hero);
+  }
+  .save-more-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .save-more-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .save-more-title {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  html[lang="ko"] .save-more-title,
+  html[lang="ja"] .save-more-title,
+  html[lang="zh-CN"] .save-more-title {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
+    font-style: normal;
+  }
+  .save-more-subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 520px;
+    line-height: 1.5;
+  }
+  .apply-all-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .apply-all-btn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+  }
+  .total-savings-callout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding: 18px 22px;
+    background: var(--bg);
+    border-radius: 4px;
+    border: 1px dashed var(--line);
+    flex-wrap: wrap;
+  }
+  .total-savings-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .total-savings-amount {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    background: var(--grad-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-left: auto;
+  }
+  .levers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .lever {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 24px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .lever.active {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px -4px rgba(180, 83, 9, 0.15);
+  }
+  .lever.disabled {
+    opacity: 0.5;
+  }
+  .lever.disabled .switch { pointer-events: none; }
+  .lever.disabled input[type="range"] { pointer-events: none; }
+  .lever-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .lever-info {
+    display: flex;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+  }
+  .lever-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 3px;
+  }
+  .lever-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  html[lang="ko"] .lever-title,
+  html[lang="ja"] .lever-title,
+  html[lang="zh-CN"] .lever-title {
+    font-family: 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', serif;
+  }
+  .lever-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider-switch {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--line);
+    transition: 0.25s;
+    border-radius: 22px;
+  }
+  .slider-switch::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: 0.25s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .switch input:checked + .slider-switch { background: var(--accent); }
+  .switch input:checked + .slider-switch::before { transform: translateX(18px); }
+  .lever-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .lever-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line-soft);
+    gap: 10px;
+  }
+  .lever-label {
+    color: var(--ink-mute);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .lever-val {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 12px;
+    text-align: right;
+    word-break: break-word;
+  }
+  .lever-val.accent { color: var(--accent); }
+  .lever-slider-wrap {
+    margin: 10px 0 2px;
+  }
+  .lever-impact {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    margin-top: 10px;
+  }
+  .lever-save-prefix {
+    color: var(--ink-mute);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .lever-save-amount {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    background: var(--grad-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+  }
+  .lever-save-period {
+    color: var(--ink-mute);
+    font-size: 11px;
+  }
+
   /* Small screens refinements */
+  @media (max-width: 760px) {
+    .levers { grid-template-columns: 1fr; }
+    .save-more { padding: 32px 24px; }
+    .save-more-title { font-size: 28px; }
+    .total-savings-amount { font-size: 26px; }
+  }
   @media (max-width: 600px) {
     .scenario-header { flex-direction: column; gap: 14px; }
     .scenario-cost { text-align: left; }
     .cost-amount { font-size: 36px; }
+    .scenario.maxed .cost-amount { font-size: 42px; }
     .inputs { padding: 24px; }
     .scenario { padding: 22px 24px; }
+    .save-more-header { flex-direction: column; align-items: flex-start; }
+    .apply-all-btn { width: 100%; text-align: center; }
   }
 </style>
 </head>
@@ -618,29 +970,42 @@
 <div class="wrap">
 
   <header>
-    <div class="brand">Context Engineering Kit</div>
-    <div class="header-meta">Cost Calculator · v1.0 · Apr 2026</div>
+    <div class="header-left">
+      <div class="brand">Context Engineering Kit</div>
+      <div class="header-meta" data-i18n="headerMeta">Cost Calculator · v1.0 · Apr 2026</div>
+    </div>
+    <div class="lang-switcher">
+      <select id="langSelect" aria-label="Language">
+        <option value="en">English</option>
+        <option value="ko">한국어</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+      </select>
+    </div>
   </header>
 
   <section class="hero">
-    <div class="hero-kicker">Your Estimated Monthly Savings <span>— with persistent context + prompt caching</span></div>
-    <div class="hero-amount" id="heroAmount">$0<span class="unit">/mo</span></div>
-    <div class="hero-caption">
-      That's <em id="heroAnnual">$0/year</em> you keep by treating context as infrastructure, not chat history.
+    <div class="hero-kicker"><span data-i18n="heroKicker">Your Estimated Monthly Savings</span> <span data-i18n="heroKickerSub">— with persistent context + prompt caching</span></div>
+    <div class="hero-amount" id="heroAmount">$0<span class="unit" data-i18n="perMonth">/mo</span></div>
+    <div class="hero-caption" id="heroCaption">
+      <span data-i18n="heroAnnualPrefix">That's </span><em id="heroAnnual">$0/year</em><span data-i18n="heroAnnualSuffix"> you keep by treating context as infrastructure, not chat history.</span>
     </div>
-    <div class="hero-pct" id="heroPct">0% vs. baseline</div>
+    <div class="hero-pct" id="heroPct">0% <span data-i18n="heroPctSuffix">vs. baseline</span></div>
   </section>
 
   <section class="calc">
 
     <!-- ───── Inputs Panel ───── -->
     <aside class="inputs">
-      <div class="inputs-title">Configure</div>
-      <div class="inputs-subtitle">Your AI operation</div>
+      <div class="inputs-title" data-i18n="inputsTitle">Configure</div>
+      <div class="inputs-subtitle" data-i18n="inputsSubtitle">Your AI operation</div>
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Model</span>
+          <span class="field-name" data-i18n="fieldModel">Model</span>
           <span class="field-value" id="modelPrice">—</span>
         </div>
         <select id="model">
@@ -652,12 +1017,12 @@
           <option value="gemini-3.1-pro">Gemini 3.1 Pro</option>
           <option value="gemini-3-flash">Gemini 3 Flash</option>
         </select>
-        <div class="field-hint">Input / output price per million tokens</div>
+        <div class="field-hint" data-i18n="fieldModelHint">Input / output price per million tokens</div>
       </div>
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Agents</span>
+          <span class="field-name" data-i18n="fieldAgents">Agents</span>
           <span class="field-value" id="agentsVal">10</span>
         </div>
         <input type="range" id="agents" min="1" max="50" value="10" step="1">
@@ -665,7 +1030,7 @@
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Sessions / day / agent</span>
+          <span class="field-name" data-i18n="fieldSessions">Sessions / day / agent</span>
           <span class="field-value" id="sessionsVal">40</span>
         </div>
         <input type="range" id="sessions" min="1" max="200" value="40" step="1">
@@ -673,16 +1038,16 @@
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Context size</span>
+          <span class="field-name" data-i18n="fieldContext">Context size</span>
           <span class="field-value" id="contextVal">6,000 tok</span>
         </div>
         <input type="range" id="context" min="1000" max="30000" value="6000" step="500">
-        <div class="field-hint">Your .md persona + rules + knowledge base</div>
+        <div class="field-hint" data-i18n="fieldContextHint">Your .md persona + rules + knowledge base</div>
       </div>
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Conv. input / session</span>
+          <span class="field-name" data-i18n="fieldConv">Conv. input / session</span>
           <span class="field-value" id="convVal">500 tok</span>
         </div>
         <input type="range" id="conv" min="100" max="5000" value="500" step="50">
@@ -690,7 +1055,7 @@
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Output / session</span>
+          <span class="field-name" data-i18n="fieldOutput">Output / session</span>
           <span class="field-value" id="outputVal">500 tok</span>
         </div>
         <input type="range" id="output" min="100" max="5000" value="500" step="50">
@@ -698,13 +1063,13 @@
 
       <div class="field">
         <div class="field-label">
-          <span class="field-name">Caching</span>
+          <span class="field-name" data-i18n="fieldCaching">Caching</span>
         </div>
         <div class="toggle-row">
-          <button type="button" class="toggle-btn active" data-cache="on">Prompt cache ON</button>
-          <button type="button" class="toggle-btn" data-cache="off">OFF</button>
+          <button type="button" class="toggle-btn active" data-cache="on" data-i18n="cacheOn">Prompt cache ON</button>
+          <button type="button" class="toggle-btn" data-cache="off" data-i18n="cacheOff">OFF</button>
         </div>
-        <div class="field-hint">Affects Scenario C only · ~90% discount on cached prefix reads</div>
+        <div class="field-hint" data-i18n="cacheHint">Affects Scenario C only · ~90% discount on cached prefix reads</div>
       </div>
     </aside>
 
@@ -714,28 +1079,28 @@
       <div class="scenario scenario-a">
         <div class="scenario-header">
           <div>
-            <div class="scenario-tag">Scenario A · Baseline</div>
-            <div class="scenario-name">No context file</div>
-            <div class="scenario-desc">Re-explain project every session. Extra clarification turns eat tokens on both sides.</div>
+            <div class="scenario-tag" data-i18n="scenarioATag">Scenario A · Baseline</div>
+            <div class="scenario-name" data-i18n="scenarioAName">No context file</div>
+            <div class="scenario-desc" data-i18n="scenarioADesc">Re-explain project every session. Extra clarification turns eat tokens on both sides.</div>
           </div>
           <div class="scenario-cost">
             <div class="cost-amount" id="costA">$—</div>
-            <div class="cost-unit">/ month</div>
+            <div class="cost-unit" data-i18n="perMonthSlash">/ month</div>
           </div>
         </div>
         <div class="scenario-bar"><div class="scenario-bar-fill" id="barA" style="width:100%"></div></div>
         <div class="scenario-breakdown">
           <div class="breakdown-item">
-            <div class="breakdown-label">Input tokens</div>
+            <div class="breakdown-label" data-i18n="inputTokens">Input tokens</div>
             <div class="breakdown-val" id="aInput">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">Output tokens</div>
+            <div class="breakdown-label" data-i18n="outputTokens">Output tokens</div>
             <div class="breakdown-val" id="aOutput">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">Overhead</div>
-            <div class="breakdown-val" style="color:var(--bad)">+50% tokens</div>
+            <div class="breakdown-label" data-i18n="overhead">Overhead</div>
+            <div class="breakdown-val" style="color:var(--bad)" data-i18n="overheadVal">+50% tokens</div>
           </div>
         </div>
       </div>
@@ -743,27 +1108,27 @@
       <div class="scenario scenario-b">
         <div class="scenario-header">
           <div>
-            <div class="scenario-tag">Scenario B · Midway</div>
-            <div class="scenario-name">.md context, <em>no caching</em></div>
-            <div class="scenario-desc">Stable prefix loaded every session, but no API-level cache discount applied.</div>
+            <div class="scenario-tag" data-i18n="scenarioBTag">Scenario B · Midway</div>
+            <div class="scenario-name" data-i18n="scenarioBName">.md context, no caching</div>
+            <div class="scenario-desc" data-i18n="scenarioBDesc">Stable prefix loaded every session, but no API-level cache discount applied.</div>
           </div>
           <div class="scenario-cost">
             <div class="cost-amount" id="costB">$—</div>
-            <div class="cost-unit">/ month</div>
+            <div class="cost-unit" data-i18n="perMonthSlash">/ month</div>
           </div>
         </div>
         <div class="scenario-bar"><div class="scenario-bar-fill" id="barB" style="width:80%"></div></div>
         <div class="scenario-breakdown">
           <div class="breakdown-item">
-            <div class="breakdown-label">Input tokens</div>
+            <div class="breakdown-label" data-i18n="inputTokens">Input tokens</div>
             <div class="breakdown-val" id="bInput">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">Output tokens</div>
+            <div class="breakdown-label" data-i18n="outputTokens">Output tokens</div>
             <div class="breakdown-val" id="bOutput">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">vs. Scenario A</div>
+            <div class="breakdown-label" data-i18n="vsA">vs. Scenario A</div>
             <div class="breakdown-val" id="bSave">—</div>
           </div>
         </div>
@@ -772,32 +1137,61 @@
       <div class="scenario scenario-c featured">
         <div class="scenario-header">
           <div>
-            <div class="scenario-tag">Scenario C · Recommended</div>
-            <div class="scenario-name">.md context <em>+ prompt caching</em></div>
-            <div class="scenario-desc">Context file loaded as cached prefix — ~90% off on every session after the first write.</div>
+            <div class="scenario-tag" data-i18n="scenarioCTag">Scenario C · Recommended</div>
+            <div class="scenario-name" data-i18n="scenarioCName">.md context + prompt caching</div>
+            <div class="scenario-desc" data-i18n="scenarioCDesc">Context file loaded as cached prefix — ~90% off on every session after the first write.</div>
           </div>
           <div class="scenario-cost">
             <div class="cost-amount" id="costC">$—</div>
-            <div class="cost-unit">/ month</div>
+            <div class="cost-unit" data-i18n="perMonthSlash">/ month</div>
           </div>
         </div>
         <div class="scenario-bar"><div class="scenario-bar-fill" id="barC" style="width:30%"></div></div>
         <div class="scenario-breakdown">
           <div class="breakdown-item">
-            <div class="breakdown-label">Cache writes</div>
+            <div class="breakdown-label" data-i18n="cacheWrites">Cache writes</div>
             <div class="breakdown-val" id="cWrite">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">Cache reads (90% off)</div>
+            <div class="breakdown-label" data-i18n="cacheReads">Cache reads (90% off)</div>
             <div class="breakdown-val" id="cRead">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">Output</div>
+            <div class="breakdown-label" data-i18n="output">Output</div>
             <div class="breakdown-val" id="cOutput">—</div>
           </div>
           <div class="breakdown-item">
-            <div class="breakdown-label">vs. Scenario A</div>
+            <div class="breakdown-label" data-i18n="vsA">vs. Scenario A</div>
             <div class="breakdown-val" id="cSave" style="color:var(--ok)">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario scenario-d maxed">
+        <div class="scenario-header">
+          <div>
+            <div class="scenario-tag" data-i18n="scenarioDTag">Scenario D · Maximum</div>
+            <div class="scenario-name" data-i18n="scenarioDName">All optimizations applied</div>
+            <div class="scenario-desc" data-i18n="scenarioDDesc">Toggle the optimization levers below to see how low you can go.</div>
+          </div>
+          <div class="scenario-cost">
+            <div class="cost-amount" id="costD">$—</div>
+            <div class="cost-unit" data-i18n="perMonthSlash">/ month</div>
+          </div>
+        </div>
+        <div class="scenario-bar"><div class="scenario-bar-fill" id="barD" style="width:10%"></div></div>
+        <div class="scenario-breakdown">
+          <div class="breakdown-item">
+            <div class="breakdown-label" data-i18n="vsA">vs. Scenario A</div>
+            <div class="breakdown-val" id="dSaveVsA" style="color:var(--ok)">—</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-label" data-i18n="vsC">vs. Scenario C</div>
+            <div class="breakdown-val" id="dSaveVsC" style="color:var(--ok)">—</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-label" data-i18n="activeLevers">Active levers</div>
+            <div class="breakdown-val" id="dActiveLevers">0 / 4</div>
           </div>
         </div>
       </div>
@@ -808,33 +1202,175 @@
   <!-- ───── Bottom Stats ───── -->
   <section class="stats">
     <div class="stat">
-      <div class="stat-label">Annual savings</div>
-      <div class="stat-value accent" id="statYear">$0</div>
-      <div class="stat-caption">Scenario A → C, at your current settings</div>
+      <div class="stat-label" data-i18n="statYear">Annual savings</div>
+      <div class="stat-value accent" id="statYearVal">$0</div>
+      <div class="stat-caption" data-i18n="statYearCaption">Scenario A → C, at your current settings</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Per-agent savings</div>
+      <div class="stat-label" data-i18n="statAgent">Per-agent savings</div>
       <div class="stat-value" id="statAgent">$0</div>
-      <div class="stat-caption">Monthly savings divided across your agents</div>
+      <div class="stat-caption" data-i18n="statAgentCaption">Monthly savings divided across your agents</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Sessions this month</div>
+      <div class="stat-label" data-i18n="statSessions">Sessions this month</div>
       <div class="stat-value" id="statSessions">0</div>
-      <div class="stat-caption">Total across all agents in 30 days</div>
+      <div class="stat-caption" data-i18n="statSessionsCaption">Total across all agents in 30 days</div>
+    </div>
+  </section>
+
+  <!-- ───── Save More Section ───── -->
+  <section class="save-more">
+    <div class="save-more-header">
+      <div>
+        <div class="save-more-kicker" data-i18n="saveMoreKicker">Optimization Levers</div>
+        <div class="save-more-title" data-i18n="saveMoreTitle">How to save even more</div>
+        <div class="save-more-subtitle" data-i18n="saveMoreSubtitle">Auto-recommended based on your current setup. Toggle each lever to see its impact on Scenario D.</div>
+      </div>
+      <button class="apply-all-btn" id="applyAllBtn" data-i18n="applyAll">Apply all</button>
+    </div>
+
+    <div class="total-savings-callout">
+      <span class="total-savings-label" data-i18n="maxSavingsLabel">Additional savings from active levers</span>
+      <span class="total-savings-amount" id="maxSavings">$0/mo</span>
+    </div>
+
+    <div class="levers">
+      <div class="lever" data-lever="model">
+        <div class="lever-header">
+          <div class="lever-info">
+            <div class="lever-number">01</div>
+            <div>
+              <div class="lever-title" data-i18n="leverModelTitle">Model downgrade</div>
+              <div class="lever-desc" data-i18n="leverModelDesc">Use a cheaper model tier for the same work</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" class="lever-switch" data-lever-key="model">
+            <span class="slider-switch"></span>
+          </label>
+        </div>
+        <div class="lever-body">
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverCurrent">Currently</span>
+            <span class="lever-val" id="leverModelCurrent">—</span>
+          </div>
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverRecommended">Recommended</span>
+            <span class="lever-val accent" id="leverModelRec">—</span>
+          </div>
+          <div class="lever-impact">
+            <span class="lever-save-prefix" data-i18n="leverSaves">Saves</span>
+            <span class="lever-save-amount" id="leverModelImpact">—</span>
+            <span class="lever-save-period" data-i18n="perMonth">/mo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lever" data-lever="batch">
+        <div class="lever-header">
+          <div class="lever-info">
+            <div class="lever-number">02</div>
+            <div>
+              <div class="lever-title" data-i18n="leverBatchTitle">Batch API (async)</div>
+              <div class="lever-desc" data-i18n="leverBatchDesc">50% discount for non-real-time workloads</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" class="lever-switch" data-lever-key="batch">
+            <span class="slider-switch"></span>
+          </label>
+        </div>
+        <div class="lever-body">
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverBatchSlider">Async-tolerant workload</span>
+            <span class="lever-val accent" id="batchPctVal">50%</span>
+          </div>
+          <div class="lever-slider-wrap">
+            <input type="range" id="batchPct" min="0" max="100" value="50" step="5">
+          </div>
+          <div class="lever-impact">
+            <span class="lever-save-prefix" data-i18n="leverSaves">Saves</span>
+            <span class="lever-save-amount" id="leverBatchImpact">—</span>
+            <span class="lever-save-period" data-i18n="perMonth">/mo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lever" data-lever="context">
+        <div class="lever-header">
+          <div class="lever-info">
+            <div class="lever-number">03</div>
+            <div>
+              <div class="lever-title" data-i18n="leverContextTitle">Context compression</div>
+              <div class="lever-desc" data-i18n="leverContextDesc">Trim redundancy in your .md to cut cached token volume</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" class="lever-switch" data-lever-key="context">
+            <span class="slider-switch"></span>
+          </label>
+        </div>
+        <div class="lever-body">
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverCurrent">Currently</span>
+            <span class="lever-val" id="leverContextCurrent">—</span>
+          </div>
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverTarget">Target</span>
+            <span class="lever-val accent" id="leverContextTarget">—</span>
+          </div>
+          <div class="lever-impact">
+            <span class="lever-save-prefix" data-i18n="leverSaves">Saves</span>
+            <span class="lever-save-amount" id="leverContextImpact">—</span>
+            <span class="lever-save-period" data-i18n="perMonth">/mo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lever" data-lever="output">
+        <div class="lever-header">
+          <div class="lever-info">
+            <div class="lever-number">04</div>
+            <div>
+              <div class="lever-title" data-i18n="leverOutputTitle">Output hard cap</div>
+              <div class="lever-desc" data-i18n="leverOutputDesc">Limit max_tokens per response to prevent runaway outputs</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" class="lever-switch" data-lever-key="output">
+            <span class="slider-switch"></span>
+          </label>
+        </div>
+        <div class="lever-body">
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverCurrentAvg">Current avg</span>
+            <span class="lever-val" id="leverOutputCurrent">—</span>
+          </div>
+          <div class="lever-row">
+            <span class="lever-label" data-i18n="leverCapAt">Cap at</span>
+            <span class="lever-val accent" id="leverOutputTarget">—</span>
+          </div>
+          <div class="lever-impact">
+            <span class="lever-save-prefix" data-i18n="leverSaves">Saves</span>
+            <span class="lever-save-amount" id="leverOutputImpact">—</span>
+            <span class="lever-save-period" data-i18n="perMonth">/mo</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ───── Pricing Reference ───── -->
   <div class="pricing-ref">
-    <div class="pricing-ref-title">Pricing reference · per million tokens · April 2026</div>
+    <div class="pricing-ref-title" data-i18n="pricingTitle">Pricing reference · per million tokens · April 2026</div>
     <table class="pricing-table">
       <thead>
         <tr>
-          <th>Model</th>
-          <th>Input</th>
-          <th>Output</th>
-          <th>Cache Read</th>
-          <th>Cache Write</th>
+          <th data-i18n="colModel">Model</th>
+          <th data-i18n="colInput">Input</th>
+          <th data-i18n="colOutput">Output</th>
+          <th data-i18n="colCacheRead">Cache Read</th>
+          <th data-i18n="colCacheWrite">Cache Write</th>
         </tr>
       </thead>
       <tbody id="priceTable"></tbody>
@@ -843,11 +1379,11 @@
 
   <!-- ───── Footnote ───── -->
   <div class="footnote">
-    <div class="footnote-title">Methodology</div>
+    <div class="footnote-title" data-i18n="methodology">Methodology</div>
     <div class="footnote-body">
-      Scenario A assumes the user re-types partial context each session and triggers clarification turns, modeled as a 50% token overhead on input and 20% on output. Scenario B loads a persistent <code>.md</code> prefix but without API-level caching. Scenario C enables Anthropic-style prompt caching (cache writes at 1.25× input, cache reads at 0.10× input), with one cache write per agent per day and the rest amortized across reads. Actual savings vary by cache hit rate, session burstiness, and model-specific caching policies. Pricing compiled from official Anthropic, OpenAI, and Google pricing pages as of April 2026.
+      <span data-i18n="methodologyText">Scenario A assumes the user re-types partial context each session and triggers clarification turns, modeled as a 50% token overhead on input and 20% on output. Scenario B loads a persistent .md prefix but without API-level caching. Scenario C enables Anthropic-style prompt caching (cache writes at 1.25× input, cache reads at 0.10× input), with one cache write per agent per day and the rest amortized across reads. Actual savings vary by cache hit rate, session burstiness, and model-specific caching policies. Pricing compiled from official Anthropic, OpenAI, and Google pricing pages as of April 2026.</span>
       <br><br>
-      Part of the <a href="#">Context Engineering Kit</a>. MIT licensed.
+      <span data-i18n="partOf">Part of the </span><a href="https://github.com/wildeconforce/context-engineering-kit">Context Engineering Kit</a><span data-i18n="mitLicensed">. MIT licensed.</span>
     </div>
   </div>
 
@@ -867,6 +1403,657 @@
 
   const DAYS = 30;
   const M = 1_000_000;
+
+  // ─── Model downgrade chain (cross-provider when needed) ───
+  const DOWNGRADE_CHAIN = {
+    'claude-opus-4.7': 'claude-sonnet-4.6',
+    'claude-sonnet-4.6': 'claude-haiku-4.5',
+    'claude-haiku-4.5': 'gemini-3-flash',
+    'gpt-5.4': 'gpt-5.2',
+    'gpt-5.2': 'gemini-3-flash',
+    'gemini-3.1-pro': 'gemini-3-flash',
+    'gemini-3-flash': null,
+  };
+  function getCheaperModelKey(key) {
+    return DOWNGRADE_CHAIN[key] || null;
+  }
+
+  // ─── i18n translations ─────────────────────────────────
+  const I18N = {
+    en: {
+      headerMeta: 'Cost Calculator · v1.0 · Apr 2026',
+      heroKicker: 'Your Estimated Monthly Savings',
+      heroKickerSub: '— with persistent context + prompt caching',
+      heroAnnualPrefix: "That's ",
+      heroAnnualSuffix: ' you keep by treating context as infrastructure, not chat history.',
+      heroPctSuffix: 'vs. baseline',
+      perMonth: '/mo',
+      perYear: '/year',
+      inputsTitle: 'Configure',
+      inputsSubtitle: 'Your AI operation',
+      fieldModel: 'Model',
+      fieldModelHint: 'Input / output price per million tokens',
+      fieldAgents: 'Agents',
+      fieldSessions: 'Sessions / day / agent',
+      fieldContext: 'Context size',
+      fieldContextHint: 'Your .md persona + rules + knowledge base',
+      fieldConv: 'Conv. input / session',
+      fieldOutput: 'Output / session',
+      fieldCaching: 'Caching',
+      cacheOn: 'Prompt cache ON',
+      cacheOff: 'OFF',
+      cacheHint: 'Affects Scenario C only · ~90% discount on cached prefix reads',
+      tok: 'tok',
+      scenarioATag: 'Scenario A · Baseline',
+      scenarioAName: 'No context file',
+      scenarioADesc: 'Re-explain project every session. Extra clarification turns eat tokens on both sides.',
+      scenarioBTag: 'Scenario B · Midway',
+      scenarioBName: '.md context, no caching',
+      scenarioBDesc: 'Stable prefix loaded every session, but no API-level cache discount applied.',
+      scenarioCTag: 'Scenario C · Recommended',
+      scenarioCName: '.md context + prompt caching',
+      scenarioCDesc: 'Context file loaded as cached prefix — ~90% off on every session after the first write.',
+      perMonthSlash: '/ month',
+      inputTokens: 'Input tokens',
+      outputTokens: 'Output tokens',
+      overhead: 'Overhead',
+      overheadVal: '+50% tokens',
+      vsA: 'vs. Scenario A',
+      cacheWrites: 'Cache writes',
+      cacheReads: 'Cache reads (90% off)',
+      output: 'Output',
+      statYear: 'Annual savings',
+      statYearCaption: 'Scenario A → C, at your current settings',
+      statAgent: 'Per-agent savings',
+      statAgentCaption: 'Monthly savings divided across your agents',
+      statSessions: 'Sessions this month',
+      statSessionsCaption: 'Total across all agents in 30 days',
+      pricingTitle: 'Pricing reference · per million tokens · April 2026',
+      colModel: 'Model',
+      colInput: 'Input',
+      colOutput: 'Output',
+      colCacheRead: 'Cache Read',
+      colCacheWrite: 'Cache Write',
+      methodology: 'Methodology',
+      methodologyText: 'Scenario A assumes the user re-types partial context each session and triggers clarification turns, modeled as a 50% token overhead on input and 20% on output. Scenario B loads a persistent .md prefix but without API-level caching. Scenario C enables Anthropic-style prompt caching (cache writes at 1.25× input, cache reads at 0.10× input), with one cache write per agent per day and the rest amortized across reads. Actual savings vary by cache hit rate, session burstiness, and model-specific caching policies. Pricing compiled from official Anthropic, OpenAI, and Google pricing pages as of April 2026.',
+      partOf: 'Part of the ',
+      mitLicensed: '. MIT licensed.',
+      disabled: 'disabled',
+      scenarioDTag: 'Scenario D · Maximum',
+      scenarioDName: 'All optimizations applied',
+      scenarioDDesc: 'Toggle the optimization levers below to see how low you can go.',
+      vsC: 'vs. Scenario C',
+      activeLevers: 'Active levers',
+      saveMoreKicker: 'Optimization Levers',
+      saveMoreTitle: 'How to save even more',
+      saveMoreSubtitle: 'Auto-recommended based on your current setup. Toggle each lever to see its impact on Scenario D.',
+      applyAll: 'Apply all',
+      maxSavingsLabel: 'Additional savings from active levers',
+      leverModelTitle: 'Model downgrade',
+      leverModelDesc: 'Use a cheaper model tier for the same work',
+      leverBatchTitle: 'Batch API (async)',
+      leverBatchDesc: '50% discount for non-real-time workloads',
+      leverBatchSlider: 'Async-tolerant workload',
+      leverContextTitle: 'Context compression',
+      leverContextDesc: 'Trim redundancy in your .md to cut cached token volume',
+      leverOutputTitle: 'Output hard cap',
+      leverOutputDesc: 'Limit max_tokens per response to prevent runaway outputs',
+      leverCurrent: 'Currently',
+      leverRecommended: 'Recommended',
+      leverTarget: 'Target',
+      leverCurrentAvg: 'Current avg',
+      leverCapAt: 'Cap at',
+      leverSaves: 'Saves',
+      leverAlreadyOptimal: 'Already optimal',
+    },
+    ko: {
+      headerMeta: '비용 계산기 · v1.0 · 2026년 4월',
+      heroKicker: '예상 월간 절감액',
+      heroKickerSub: '— 영구 컨텍스트 + 프롬프트 캐싱 적용 시',
+      heroAnnualPrefix: '연간 ',
+      heroAnnualSuffix: '을 아낄 수 있습니다. 컨텍스트를 채팅이 아닌 인프라로 다룬다는 뜻입니다.',
+      heroPctSuffix: '기준선 대비',
+      perMonth: '/월',
+      perYear: '/년',
+      inputsTitle: '설정',
+      inputsSubtitle: '당신의 AI 운영',
+      fieldModel: '모델',
+      fieldModelHint: '백만 토큰당 입력/출력 가격',
+      fieldAgents: '에이전트 수',
+      fieldSessions: '세션 / 일 / 에이전트',
+      fieldContext: '컨텍스트 크기',
+      fieldContextHint: '.md 페르소나 + 규칙 + 지식베이스',
+      fieldConv: '대화 입력 / 세션',
+      fieldOutput: '출력 / 세션',
+      fieldCaching: '캐싱',
+      cacheOn: '프롬프트 캐시 ON',
+      cacheOff: 'OFF',
+      cacheHint: '시나리오 C에만 적용 · 캐시된 프리픽스 읽기 ~90% 할인',
+      tok: '토큰',
+      scenarioATag: '시나리오 A · 기준선',
+      scenarioAName: '컨텍스트 파일 없음',
+      scenarioADesc: '매 세션마다 프로젝트를 다시 설명. 명확화 턴이 양쪽 토큰을 먹어치움.',
+      scenarioBTag: '시나리오 B · 중간',
+      scenarioBName: '.md 컨텍스트, 캐싱 없음',
+      scenarioBDesc: '매 세션마다 안정적 프리픽스 로드, 하지만 API 레벨 캐시 할인 미적용.',
+      scenarioCTag: '시나리오 C · 추천',
+      scenarioCName: '.md 컨텍스트 + 프롬프트 캐싱',
+      scenarioCDesc: '컨텍스트 파일을 캐시된 프리픽스로 로드 — 최초 쓰기 이후 모든 세션에서 ~90% 할인.',
+      perMonthSlash: '/ 월',
+      inputTokens: '입력 토큰',
+      outputTokens: '출력 토큰',
+      overhead: '오버헤드',
+      overheadVal: '+50% 토큰',
+      vsA: '시나리오 A 대비',
+      cacheWrites: '캐시 쓰기',
+      cacheReads: '캐시 읽기 (90% 할인)',
+      output: '출력',
+      statYear: '연간 절감액',
+      statYearCaption: '현재 설정에서 시나리오 A → C',
+      statAgent: '에이전트당 절감액',
+      statAgentCaption: '에이전트 수로 나눈 월간 절감액',
+      statSessions: '이번 달 세션 수',
+      statSessionsCaption: '30일간 모든 에이전트 합계',
+      pricingTitle: '가격 참고 · 백만 토큰당 · 2026년 4월',
+      colModel: '모델',
+      colInput: '입력',
+      colOutput: '출력',
+      colCacheRead: '캐시 읽기',
+      colCacheWrite: '캐시 쓰기',
+      methodology: '방법론',
+      methodologyText: '시나리오 A는 사용자가 매 세션마다 부분 컨텍스트를 다시 입력하고 명확화 턴이 발생하는 상황을 가정합니다 — 입력에 50%, 출력에 20% 토큰 오버헤드로 모델링. 시나리오 B는 영구 .md 프리픽스를 로드하지만 API 레벨 캐싱은 없음. 시나리오 C는 Anthropic 스타일 프롬프트 캐싱(캐시 쓰기 1.25× 입력, 캐시 읽기 0.10× 입력)을 활성화 — 에이전트당 하루 1회 캐시 쓰기, 나머지는 읽기로 분산. 실제 절감액은 캐시 적중률, 세션 분포, 모델별 캐싱 정책에 따라 달라집니다. 가격은 2026년 4월 기준 Anthropic, OpenAI, Google 공식 문서 기준입니다.',
+      partOf: '',
+      mitLicensed: ' · MIT 라이선스',
+      disabled: '비활성',
+      scenarioDTag: '시나리오 D · 최대',
+      scenarioDName: '모든 최적화 적용',
+      scenarioDDesc: '아래 최적화 레버를 토글해서 얼마나 더 내릴 수 있는지 확인하세요.',
+      vsC: '시나리오 C 대비',
+      activeLevers: '활성 레버',
+      saveMoreKicker: '최적화 레버',
+      saveMoreTitle: '더 아낄 수 있는 방법',
+      saveMoreSubtitle: '현재 설정 기준 자동 추천. 각 레버를 토글해서 시나리오 D에 미치는 영향을 확인하세요.',
+      applyAll: '모두 적용',
+      maxSavingsLabel: '활성 레버 추가 절감액',
+      leverModelTitle: '모델 다운그레이드',
+      leverModelDesc: '동일 작업에 더 저렴한 모델 티어 사용',
+      leverBatchTitle: 'Batch API (비동기)',
+      leverBatchDesc: '실시간이 아닌 작업에 50% 할인',
+      leverBatchSlider: '비동기 가능 작업 비율',
+      leverContextTitle: '컨텍스트 압축',
+      leverContextDesc: '.md 중복 제거로 캐시 토큰 볼륨 감축',
+      leverOutputTitle: '출력 하드 캡',
+      leverOutputDesc: '응답당 max_tokens 제한으로 폭주 방지',
+      leverCurrent: '현재',
+      leverRecommended: '추천',
+      leverTarget: '목표',
+      leverCurrentAvg: '현재 평균',
+      leverCapAt: '제한 값',
+      leverSaves: '절감',
+      leverAlreadyOptimal: '이미 최적',
+    },
+    ja: {
+      headerMeta: 'コスト計算機 · v1.0 · 2026年4月',
+      heroKicker: '月間節約額 (推定)',
+      heroKickerSub: '— 永続コンテキスト + プロンプトキャッシングで',
+      heroAnnualPrefix: '年間 ',
+      heroAnnualSuffix: ' の節約です。コンテキストをチャット履歴ではなくインフラとして扱う発想です。',
+      heroPctSuffix: 'ベースライン比',
+      perMonth: '/月',
+      perYear: '/年',
+      inputsTitle: '設定',
+      inputsSubtitle: 'あなたのAI運用',
+      fieldModel: 'モデル',
+      fieldModelHint: '100万トークンあたりの入力/出力価格',
+      fieldAgents: 'エージェント数',
+      fieldSessions: 'セッション / 日 / エージェント',
+      fieldContext: 'コンテキストサイズ',
+      fieldContextHint: '.md ペルソナ + ルール + ナレッジベース',
+      fieldConv: '会話入力 / セッション',
+      fieldOutput: '出力 / セッション',
+      fieldCaching: 'キャッシング',
+      cacheOn: 'プロンプトキャッシュ ON',
+      cacheOff: 'OFF',
+      cacheHint: 'シナリオCのみ適用 · キャッシュ済み接頭辞の読取で約90%割引',
+      tok: 'tok',
+      scenarioATag: 'シナリオA · ベースライン',
+      scenarioAName: 'コンテキストファイルなし',
+      scenarioADesc: 'セッションごとにプロジェクトを説明し直す。確認ターンが両側のトークンを消費。',
+      scenarioBTag: 'シナリオB · 中間',
+      scenarioBName: '.md コンテキスト、キャッシングなし',
+      scenarioBDesc: '安定した接頭辞を毎セッション読み込むが、APIレベルのキャッシュ割引は未適用。',
+      scenarioCTag: 'シナリオC · 推奨',
+      scenarioCName: '.md コンテキスト + プロンプトキャッシング',
+      scenarioCDesc: 'コンテキストファイルをキャッシュ済み接頭辞として読込 — 最初の書込以降、全セッションで約90%割引。',
+      perMonthSlash: '/ 月',
+      inputTokens: '入力トークン',
+      outputTokens: '出力トークン',
+      overhead: 'オーバーヘッド',
+      overheadVal: '+50% トークン',
+      vsA: 'シナリオA比',
+      cacheWrites: 'キャッシュ書込',
+      cacheReads: 'キャッシュ読取 (90%オフ)',
+      output: '出力',
+      statYear: '年間節約額',
+      statYearCaption: '現在の設定でシナリオA → C',
+      statAgent: 'エージェント単位の節約',
+      statAgentCaption: 'エージェント数で割った月間節約額',
+      statSessions: '今月のセッション数',
+      statSessionsCaption: '30日間の全エージェント合計',
+      pricingTitle: '価格参考 · 100万トークンあたり · 2026年4月',
+      colModel: 'モデル',
+      colInput: '入力',
+      colOutput: '出力',
+      colCacheRead: 'キャッシュ読',
+      colCacheWrite: 'キャッシュ書',
+      methodology: '計算方法',
+      methodologyText: 'シナリオAは、ユーザーが毎セッション部分的にコンテキストを再入力し、確認ターンが発生することを想定 — 入力に50%、出力に20%のトークンオーバーヘッドとしてモデル化。シナリオBは永続的な.md接頭辞を読み込むがAPIレベルのキャッシングなし。シナリオCはAnthropicスタイルのプロンプトキャッシング(キャッシュ書込は入力の1.25倍、読取は0.10倍)を有効化 — エージェントあたり1日1回のキャッシュ書込、残りは読取として分散。実際の節約額はキャッシュヒット率、セッションの偏り、モデル固有のキャッシングポリシーによって変動します。価格は2026年4月時点のAnthropic、OpenAI、Google公式ドキュメントを参照。',
+      partOf: '',
+      mitLicensed: ' · MITライセンス',
+      disabled: '無効',
+      scenarioDTag: 'シナリオD · 最大',
+      scenarioDName: 'すべての最適化を適用',
+      scenarioDDesc: '下部の最適化レバーをトグルして、どこまで下げられるか確認してください。',
+      vsC: 'シナリオC比',
+      activeLevers: 'アクティブなレバー',
+      saveMoreKicker: '最適化レバー',
+      saveMoreTitle: 'さらに節約する方法',
+      saveMoreSubtitle: '現在の設定に基づく自動推奨。各レバーをトグルしてシナリオDへの影響を確認してください。',
+      applyAll: 'すべて適用',
+      maxSavingsLabel: 'アクティブレバーによる追加節約',
+      leverModelTitle: 'モデルダウングレード',
+      leverModelDesc: '同じ作業により安いモデルティアを使用',
+      leverBatchTitle: 'Batch API (非同期)',
+      leverBatchDesc: 'リアルタイム不要の作業に50%割引',
+      leverBatchSlider: '非同期対応可能な作業の割合',
+      leverContextTitle: 'コンテキスト圧縮',
+      leverContextDesc: '.md の冗長性を削減してキャッシュトークン量を減らす',
+      leverOutputTitle: '出力ハードキャップ',
+      leverOutputDesc: '応答あたりの max_tokens を制限して暴走を防止',
+      leverCurrent: '現在',
+      leverRecommended: '推奨',
+      leverTarget: '目標',
+      leverCurrentAvg: '現在の平均',
+      leverCapAt: '上限値',
+      leverSaves: '節約',
+      leverAlreadyOptimal: '既に最適',
+    },
+    'zh-CN': {
+      headerMeta: '成本计算器 · v1.0 · 2026年4月',
+      heroKicker: '预估月度节省',
+      heroKickerSub: '— 使用持久化上下文 + 提示缓存',
+      heroAnnualPrefix: '每年可节省 ',
+      heroAnnualSuffix: '。将上下文视为基础设施而非聊天记录。',
+      heroPctSuffix: '相比基线',
+      perMonth: '/月',
+      perYear: '/年',
+      inputsTitle: '配置',
+      inputsSubtitle: '你的AI运营',
+      fieldModel: '模型',
+      fieldModelHint: '每百万token的输入/输出价格',
+      fieldAgents: '代理数量',
+      fieldSessions: '会话 / 天 / 代理',
+      fieldContext: '上下文大小',
+      fieldContextHint: '.md 人设 + 规则 + 知识库',
+      fieldConv: '对话输入 / 会话',
+      fieldOutput: '输出 / 会话',
+      fieldCaching: '缓存',
+      cacheOn: '提示缓存 开启',
+      cacheOff: '关闭',
+      cacheHint: '仅影响场景C · 缓存前缀读取约90%折扣',
+      tok: 'tok',
+      scenarioATag: '场景A · 基线',
+      scenarioAName: '无上下文文件',
+      scenarioADesc: '每次会话重新解释项目。额外的澄清轮次消耗双向token。',
+      scenarioBTag: '场景B · 中间',
+      scenarioBName: '.md 上下文,无缓存',
+      scenarioBDesc: '每次会话加载稳定前缀,但未应用API级缓存折扣。',
+      scenarioCTag: '场景C · 推荐',
+      scenarioCName: '.md 上下文 + 提示缓存',
+      scenarioCDesc: '上下文文件作为缓存前缀加载 — 首次写入后,每次会话节省约90%。',
+      perMonthSlash: '/ 月',
+      inputTokens: '输入token',
+      outputTokens: '输出token',
+      overhead: '开销',
+      overheadVal: '+50% token',
+      vsA: '相比场景A',
+      cacheWrites: '缓存写入',
+      cacheReads: '缓存读取 (90%折扣)',
+      output: '输出',
+      statYear: '年度节省',
+      statYearCaption: '当前设置下场景A → C',
+      statAgent: '每代理节省',
+      statAgentCaption: '月度节省除以代理数',
+      statSessions: '本月会话数',
+      statSessionsCaption: '30天内所有代理总和',
+      pricingTitle: '价格参考 · 每百万token · 2026年4月',
+      colModel: '模型',
+      colInput: '输入',
+      colOutput: '输出',
+      colCacheRead: '缓存读',
+      colCacheWrite: '缓存写',
+      methodology: '方法论',
+      methodologyText: '场景A假设用户每次会话部分重输入上下文并触发澄清轮次 — 建模为输入50%、输出20%的token开销。场景B加载持久.md前缀但无API级缓存。场景C启用Anthropic风格的提示缓存(缓存写入为输入的1.25倍,读取为0.10倍) — 每代理每天1次缓存写入,其余分摊到读取。实际节省因缓存命中率、会话突发性和模型特定缓存政策而异。价格参考截至2026年4月的Anthropic、OpenAI和Google官方定价页面。',
+      partOf: '',
+      mitLicensed: ' · MIT 许可证',
+      disabled: '已禁用',
+      scenarioDTag: '场景D · 最大',
+      scenarioDName: '应用所有优化',
+      scenarioDDesc: '切换下方的优化杠杆,查看可以降到多低。',
+      vsC: '相比场景C',
+      activeLevers: '激活的杠杆',
+      saveMoreKicker: '优化杠杆',
+      saveMoreTitle: '如何进一步节省',
+      saveMoreSubtitle: '基于当前设置自动推荐。切换每个杠杆查看对场景D的影响。',
+      applyAll: '全部应用',
+      maxSavingsLabel: '激活杠杆带来的额外节省',
+      leverModelTitle: '模型降级',
+      leverModelDesc: '使用更便宜的模型层级完成相同工作',
+      leverBatchTitle: 'Batch API (异步)',
+      leverBatchDesc: '非实时工作负载享50%折扣',
+      leverBatchSlider: '可异步的工作比例',
+      leverContextTitle: '上下文压缩',
+      leverContextDesc: '精简 .md 中的冗余以减少缓存token量',
+      leverOutputTitle: '输出硬上限',
+      leverOutputDesc: '限制每个响应的 max_tokens 防止失控',
+      leverCurrent: '当前',
+      leverRecommended: '推荐',
+      leverTarget: '目标',
+      leverCurrentAvg: '当前平均',
+      leverCapAt: '上限为',
+      leverSaves: '节省',
+      leverAlreadyOptimal: '已是最优',
+    },
+    es: {
+      headerMeta: 'Calculadora de costos · v1.0 · Abril 2026',
+      heroKicker: 'Ahorro mensual estimado',
+      heroKickerSub: '— con contexto persistente + caché de prompts',
+      heroAnnualPrefix: 'Son ',
+      heroAnnualSuffix: ' al año que ahorras al tratar el contexto como infraestructura, no como historial de chat.',
+      heroPctSuffix: 'vs. baseline',
+      perMonth: '/mes',
+      perYear: '/año',
+      inputsTitle: 'Configurar',
+      inputsSubtitle: 'Tu operación de IA',
+      fieldModel: 'Modelo',
+      fieldModelHint: 'Precio de entrada / salida por millón de tokens',
+      fieldAgents: 'Agentes',
+      fieldSessions: 'Sesiones / día / agente',
+      fieldContext: 'Tamaño del contexto',
+      fieldContextHint: 'Tu .md con persona + reglas + base de conocimiento',
+      fieldConv: 'Entrada conv. / sesión',
+      fieldOutput: 'Salida / sesión',
+      fieldCaching: 'Caché',
+      cacheOn: 'Caché de prompts ON',
+      cacheOff: 'OFF',
+      cacheHint: 'Afecta solo al Escenario C · ~90% de descuento en lecturas de prefijo cacheado',
+      tok: 'tok',
+      scenarioATag: 'Escenario A · Baseline',
+      scenarioAName: 'Sin archivo de contexto',
+      scenarioADesc: 'Re-explicar el proyecto cada sesión. Turnos extra de aclaración consumen tokens de ambos lados.',
+      scenarioBTag: 'Escenario B · Intermedio',
+      scenarioBName: '.md contexto, sin caché',
+      scenarioBDesc: 'Prefijo estable cargado cada sesión, pero sin descuento de caché a nivel de API.',
+      scenarioCTag: 'Escenario C · Recomendado',
+      scenarioCName: '.md contexto + caché de prompts',
+      scenarioCDesc: 'Archivo de contexto cargado como prefijo cacheado — ~90% de descuento después de la primera escritura.',
+      perMonthSlash: '/ mes',
+      inputTokens: 'Tokens de entrada',
+      outputTokens: 'Tokens de salida',
+      overhead: 'Sobrecarga',
+      overheadVal: '+50% tokens',
+      vsA: 'vs. Escenario A',
+      cacheWrites: 'Escrituras de caché',
+      cacheReads: 'Lecturas de caché (90% off)',
+      output: 'Salida',
+      statYear: 'Ahorro anual',
+      statYearCaption: 'Escenario A → C, con tu configuración actual',
+      statAgent: 'Ahorro por agente',
+      statAgentCaption: 'Ahorro mensual dividido entre tus agentes',
+      statSessions: 'Sesiones este mes',
+      statSessionsCaption: 'Total entre todos los agentes en 30 días',
+      pricingTitle: 'Referencia de precios · por millón de tokens · Abril 2026',
+      colModel: 'Modelo',
+      colInput: 'Entrada',
+      colOutput: 'Salida',
+      colCacheRead: 'Lectura caché',
+      colCacheWrite: 'Escritura caché',
+      methodology: 'Metodología',
+      methodologyText: 'El Escenario A asume que el usuario re-escribe contexto parcial cada sesión y dispara turnos de aclaración, modelado como 50% de sobrecarga de tokens en entrada y 20% en salida. El Escenario B carga un prefijo .md persistente pero sin caché a nivel de API. El Escenario C habilita caché de prompts estilo Anthropic (escrituras a 1.25× input, lecturas a 0.10× input), con una escritura de caché por agente por día y el resto amortizado en lecturas. El ahorro real varía según la tasa de aciertos de caché, la distribución de sesiones y las políticas de caché específicas del modelo. Precios compilados de las páginas oficiales de Anthropic, OpenAI y Google en abril de 2026.',
+      partOf: 'Parte del ',
+      mitLicensed: '. Licencia MIT.',
+      disabled: 'desactivado',
+      scenarioDTag: 'Escenario D · Máximo',
+      scenarioDName: 'Todas las optimizaciones aplicadas',
+      scenarioDDesc: 'Activa las palancas de optimización abajo para ver cuánto más puedes ahorrar.',
+      vsC: 'vs. Escenario C',
+      activeLevers: 'Palancas activas',
+      saveMoreKicker: 'Palancas de optimización',
+      saveMoreTitle: 'Cómo ahorrar aún más',
+      saveMoreSubtitle: 'Auto-recomendadas según tu configuración actual. Activa cada palanca para ver su impacto en el Escenario D.',
+      applyAll: 'Aplicar todas',
+      maxSavingsLabel: 'Ahorro adicional de palancas activas',
+      leverModelTitle: 'Reducción de modelo',
+      leverModelDesc: 'Usa un nivel de modelo más barato para el mismo trabajo',
+      leverBatchTitle: 'Batch API (asíncrono)',
+      leverBatchDesc: '50% de descuento para cargas no en tiempo real',
+      leverBatchSlider: 'Carga tolerante a asíncrono',
+      leverContextTitle: 'Compresión de contexto',
+      leverContextDesc: 'Reduce redundancia en tu .md para cortar el volumen de tokens cacheados',
+      leverOutputTitle: 'Tope de salida',
+      leverOutputDesc: 'Limita max_tokens por respuesta para prevenir outputs descontrolados',
+      leverCurrent: 'Actualmente',
+      leverRecommended: 'Recomendado',
+      leverTarget: 'Objetivo',
+      leverCurrentAvg: 'Promedio actual',
+      leverCapAt: 'Limitar a',
+      leverSaves: 'Ahorra',
+      leverAlreadyOptimal: 'Ya óptimo',
+    },
+    fr: {
+      headerMeta: 'Calculateur de coûts · v1.0 · Avril 2026',
+      heroKicker: 'Économies mensuelles estimées',
+      heroKickerSub: '— avec contexte persistant + mise en cache des prompts',
+      heroAnnualPrefix: 'Soit ',
+      heroAnnualSuffix: " par an économisés en traitant le contexte comme de l'infrastructure, pas un historique de chat.",
+      heroPctSuffix: 'vs. baseline',
+      perMonth: '/mois',
+      perYear: '/an',
+      inputsTitle: 'Configurer',
+      inputsSubtitle: 'Votre opération IA',
+      fieldModel: 'Modèle',
+      fieldModelHint: 'Prix entrée / sortie par million de tokens',
+      fieldAgents: 'Agents',
+      fieldSessions: 'Sessions / jour / agent',
+      fieldContext: 'Taille du contexte',
+      fieldContextHint: 'Votre .md persona + règles + base de connaissances',
+      fieldConv: 'Entrée conv. / session',
+      fieldOutput: 'Sortie / session',
+      fieldCaching: 'Cache',
+      cacheOn: 'Cache de prompts ON',
+      cacheOff: 'OFF',
+      cacheHint: 'Affecte uniquement le Scénario C · ~90% de remise sur les lectures de préfixe en cache',
+      tok: 'tok',
+      scenarioATag: 'Scénario A · Baseline',
+      scenarioAName: 'Pas de fichier contexte',
+      scenarioADesc: 'Ré-expliquer le projet à chaque session. Les tours de clarification mangent des tokens des deux côtés.',
+      scenarioBTag: 'Scénario B · Intermédiaire',
+      scenarioBName: '.md contexte, sans cache',
+      scenarioBDesc: 'Préfixe stable chargé à chaque session, mais sans remise de cache au niveau API.',
+      scenarioCTag: 'Scénario C · Recommandé',
+      scenarioCName: '.md contexte + cache de prompts',
+      scenarioCDesc: 'Fichier contexte chargé comme préfixe en cache — ~90% de remise après la première écriture.',
+      perMonthSlash: '/ mois',
+      inputTokens: "Tokens d'entrée",
+      outputTokens: 'Tokens de sortie',
+      overhead: 'Surcharge',
+      overheadVal: '+50% tokens',
+      vsA: 'vs. Scénario A',
+      cacheWrites: 'Écritures cache',
+      cacheReads: 'Lectures cache (90% off)',
+      output: 'Sortie',
+      statYear: 'Économies annuelles',
+      statYearCaption: 'Scénario A → C, avec votre configuration actuelle',
+      statAgent: 'Économies par agent',
+      statAgentCaption: 'Économies mensuelles divisées par vos agents',
+      statSessions: 'Sessions ce mois',
+      statSessionsCaption: 'Total sur tous agents en 30 jours',
+      pricingTitle: 'Référence tarifaire · par million de tokens · Avril 2026',
+      colModel: 'Modèle',
+      colInput: 'Entrée',
+      colOutput: 'Sortie',
+      colCacheRead: 'Lecture cache',
+      colCacheWrite: 'Écriture cache',
+      methodology: 'Méthodologie',
+      methodologyText: "Le Scénario A suppose que l'utilisateur réécrit un contexte partiel à chaque session et déclenche des tours de clarification, modélisé comme 50% de surcharge de tokens en entrée et 20% en sortie. Le Scénario B charge un préfixe .md persistant mais sans cache au niveau API. Le Scénario C active la mise en cache des prompts style Anthropic (écritures à 1.25× input, lectures à 0.10× input), avec une écriture de cache par agent par jour, le reste amorti sur les lectures. Les économies réelles varient selon le taux de cache hit, la distribution des sessions et les politiques de cache spécifiques au modèle. Prix compilés à partir des pages officielles Anthropic, OpenAI et Google en avril 2026.",
+      partOf: 'Fait partie du ',
+      mitLicensed: '. Licence MIT.',
+      disabled: 'désactivé',
+      scenarioDTag: 'Scénario D · Maximum',
+      scenarioDName: 'Toutes les optimisations appliquées',
+      scenarioDDesc: "Activez les leviers d'optimisation ci-dessous pour voir jusqu'où vous pouvez descendre.",
+      vsC: 'vs. Scénario C',
+      activeLevers: 'Leviers actifs',
+      saveMoreKicker: "Leviers d'optimisation",
+      saveMoreTitle: 'Comment économiser encore plus',
+      saveMoreSubtitle: 'Auto-recommandés selon votre configuration actuelle. Activez chaque levier pour voir son impact sur le Scénario D.',
+      applyAll: 'Tout appliquer',
+      maxSavingsLabel: 'Économies supplémentaires des leviers actifs',
+      leverModelTitle: 'Downgrade de modèle',
+      leverModelDesc: 'Utilisez un niveau de modèle moins cher pour le même travail',
+      leverBatchTitle: 'Batch API (asynchrone)',
+      leverBatchDesc: '50% de remise pour les charges non temps réel',
+      leverBatchSlider: "Charge tolérant l'asynchrone",
+      leverContextTitle: 'Compression du contexte',
+      leverContextDesc: 'Élaguez la redondance dans votre .md pour réduire le volume de tokens cachés',
+      leverOutputTitle: 'Plafond de sortie',
+      leverOutputDesc: 'Limitez max_tokens par réponse pour éviter les sorties incontrôlées',
+      leverCurrent: 'Actuellement',
+      leverRecommended: 'Recommandé',
+      leverTarget: 'Cible',
+      leverCurrentAvg: 'Moyenne actuelle',
+      leverCapAt: 'Plafonner à',
+      leverSaves: 'Économise',
+      leverAlreadyOptimal: 'Déjà optimal',
+    },
+    de: {
+      headerMeta: 'Kostenrechner · v1.0 · April 2026',
+      heroKicker: 'Geschätzte monatliche Ersparnis',
+      heroKickerSub: '— mit persistentem Kontext + Prompt-Caching',
+      heroAnnualPrefix: 'Das sind ',
+      heroAnnualSuffix: ' pro Jahr, die du sparst, wenn du Kontext als Infrastruktur behandelst statt als Chat-Verlauf.',
+      heroPctSuffix: 'vs. Baseline',
+      perMonth: '/Mon',
+      perYear: '/Jahr',
+      inputsTitle: 'Konfigurieren',
+      inputsSubtitle: 'Dein AI-Betrieb',
+      fieldModel: 'Modell',
+      fieldModelHint: 'Eingabe- / Ausgabepreis pro Million Tokens',
+      fieldAgents: 'Agenten',
+      fieldSessions: 'Sitzungen / Tag / Agent',
+      fieldContext: 'Kontextgröße',
+      fieldContextHint: 'Deine .md Persona + Regeln + Wissensbasis',
+      fieldConv: 'Konv.-Eingabe / Sitzung',
+      fieldOutput: 'Ausgabe / Sitzung',
+      fieldCaching: 'Caching',
+      cacheOn: 'Prompt-Cache AN',
+      cacheOff: 'AUS',
+      cacheHint: 'Betrifft nur Szenario C · ~90% Rabatt auf gecachte Prefix-Reads',
+      tok: 'tok',
+      scenarioATag: 'Szenario A · Baseline',
+      scenarioAName: 'Keine Kontextdatei',
+      scenarioADesc: 'Projekt bei jeder Sitzung neu erklären. Zusätzliche Klärungsrunden fressen Tokens auf beiden Seiten.',
+      scenarioBTag: 'Szenario B · Mittelweg',
+      scenarioBName: '.md Kontext, ohne Caching',
+      scenarioBDesc: 'Stabiler Prefix bei jeder Sitzung geladen, aber ohne API-level Cache-Rabatt.',
+      scenarioCTag: 'Szenario C · Empfohlen',
+      scenarioCName: '.md Kontext + Prompt-Caching',
+      scenarioCDesc: 'Kontextdatei als gecachter Prefix geladen — ~90% Rabatt ab dem ersten Write bei jeder weiteren Sitzung.',
+      perMonthSlash: '/ Monat',
+      inputTokens: 'Eingabe-Tokens',
+      outputTokens: 'Ausgabe-Tokens',
+      overhead: 'Overhead',
+      overheadVal: '+50% Tokens',
+      vsA: 'vs. Szenario A',
+      cacheWrites: 'Cache-Writes',
+      cacheReads: 'Cache-Reads (90% aus)',
+      output: 'Ausgabe',
+      statYear: 'Jährliche Ersparnis',
+      statYearCaption: 'Szenario A → C mit deinen aktuellen Einstellungen',
+      statAgent: 'Ersparnis pro Agent',
+      statAgentCaption: 'Monatliche Ersparnis geteilt durch Agenten',
+      statSessions: 'Sitzungen diesen Monat',
+      statSessionsCaption: 'Gesamt über alle Agenten in 30 Tagen',
+      pricingTitle: 'Preisreferenz · pro Million Tokens · April 2026',
+      colModel: 'Modell',
+      colInput: 'Eingabe',
+      colOutput: 'Ausgabe',
+      colCacheRead: 'Cache-Read',
+      colCacheWrite: 'Cache-Write',
+      methodology: 'Methodik',
+      methodologyText: 'Szenario A nimmt an, dass der Nutzer in jeder Sitzung teilweise Kontext neu eingibt und Klärungsrunden auslöst, modelliert als 50% Token-Overhead bei Eingabe und 20% bei Ausgabe. Szenario B lädt einen persistenten .md Prefix, aber ohne API-level Caching. Szenario C aktiviert Anthropic-style Prompt-Caching (Cache-Writes mit 1.25× Input, Cache-Reads mit 0.10× Input), mit einem Cache-Write pro Agent pro Tag, der Rest wird auf Reads verteilt. Die tatsächliche Ersparnis variiert je nach Cache-Trefferquote, Sitzungs-Burstiness und modellspezifischen Caching-Richtlinien. Preise aus den offiziellen Anthropic-, OpenAI- und Google-Preis-Seiten, Stand April 2026.',
+      partOf: 'Teil des ',
+      mitLicensed: '. MIT-Lizenz.',
+      disabled: 'deaktiviert',
+      scenarioDTag: 'Szenario D · Maximum',
+      scenarioDName: 'Alle Optimierungen angewendet',
+      scenarioDDesc: 'Schalte die Optimierungs-Hebel unten um, um zu sehen, wie weit du runter kommst.',
+      vsC: 'vs. Szenario C',
+      activeLevers: 'Aktive Hebel',
+      saveMoreKicker: 'Optimierungs-Hebel',
+      saveMoreTitle: 'Wie du noch mehr sparst',
+      saveMoreSubtitle: 'Auto-empfohlen basierend auf deinem aktuellen Setup. Jeden Hebel umschalten, um die Auswirkung auf Szenario D zu sehen.',
+      applyAll: 'Alle anwenden',
+      maxSavingsLabel: 'Zusätzliche Ersparnis durch aktive Hebel',
+      leverModelTitle: 'Modell-Downgrade',
+      leverModelDesc: 'Günstigere Modellstufe für dieselbe Arbeit verwenden',
+      leverBatchTitle: 'Batch API (async)',
+      leverBatchDesc: '50% Rabatt für nicht-Echtzeit-Workloads',
+      leverBatchSlider: 'Async-tolerante Arbeitslast',
+      leverContextTitle: 'Kontext-Kompression',
+      leverContextDesc: 'Redundanz in deinem .md reduzieren, um gecachtes Token-Volumen zu senken',
+      leverOutputTitle: 'Output-Limit',
+      leverOutputDesc: 'max_tokens pro Antwort begrenzen, um ausufernde Outputs zu verhindern',
+      leverCurrent: 'Aktuell',
+      leverRecommended: 'Empfohlen',
+      leverTarget: 'Ziel',
+      leverCurrentAvg: 'Aktueller Durchschnitt',
+      leverCapAt: 'Begrenzen auf',
+      leverSaves: 'Spart',
+      leverAlreadyOptimal: 'Bereits optimal',
+    },
+  };
+
+  // ─── Language handling ─────────────────────────────────
+  function detectInitialLang() {
+    try {
+      const saved = localStorage.getItem('cek-lang');
+      if (saved && I18N[saved]) return saved;
+    } catch (e) { /* localStorage unavailable */ }
+    const browser = (navigator.language || 'en').toLowerCase();
+    if (browser.startsWith('ko')) return 'ko';
+    if (browser.startsWith('ja')) return 'ja';
+    if (browser.startsWith('zh')) return 'zh-CN';
+    if (browser.startsWith('es')) return 'es';
+    if (browser.startsWith('fr')) return 'fr';
+    if (browser.startsWith('de')) return 'de';
+    return 'en';
+  }
+
+  let currentLang = detectInitialLang();
+  document.documentElement.lang = currentLang;
+
+  function t(key) {
+    return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+  }
+
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.textContent = t(key);
+    });
+    document.documentElement.lang = currentLang;
+  }
 
   // ─── Format helpers ───
   const fmt$ = (n) => {
@@ -889,17 +2076,17 @@
     const { agents, sessionsPerDay, contextTokens, convInputTokens, outputTokens } = inputs;
     const totalSessions = agents * sessionsPerDay * DAYS;
 
-    // Scenario A — no context file, re-explain each time + clarification overhead
+    // Scenario A
     const aInputTokens = totalSessions * (contextTokens * 1.5 + convInputTokens);
     const aOutputTokens = totalSessions * outputTokens * 1.2;
     const aCost = (aInputTokens * model.input + aOutputTokens * model.output) / M;
 
-    // Scenario B — .md context, no caching
+    // Scenario B
     const bInputTokens = totalSessions * (contextTokens + convInputTokens);
     const bOutputTokens = totalSessions * outputTokens;
     const bCost = (bInputTokens * model.input + bOutputTokens * model.output) / M;
 
-    // Scenario C — .md context + caching (if cacheOn; otherwise same as B)
+    // Scenario C
     let cCost, cacheWrites, cacheReadTokens, cacheWriteTokens, cOutputCost, cConvInputCost;
     if (cacheOn) {
       cacheWrites = agents * DAYS;
@@ -928,7 +2115,7 @@
     };
   }
 
-  // ─── UI wiring ───
+  // ─── State & wiring ───
   const $ = (id) => document.getElementById(id);
   const state = {
     agents: 10,
@@ -938,6 +2125,8 @@
     outputTokens: 500,
     modelKey: 'claude-sonnet-4.6',
     cacheOn: true,
+    levers: { model: false, batch: false, context: false, output: false },
+    batchPct: 50,
   };
 
   function readInputs() {
@@ -950,15 +2139,15 @@
   }
 
   function updateLabels() {
+    const tokLabel = t('tok');
     $('agentsVal').textContent = state.agents;
     $('sessionsVal').textContent = state.sessionsPerDay;
-    $('contextVal').textContent = state.contextTokens.toLocaleString() + ' tok';
-    $('convVal').textContent = state.convInputTokens.toLocaleString() + ' tok';
-    $('outputVal').textContent = state.outputTokens.toLocaleString() + ' tok';
+    $('contextVal').textContent = state.contextTokens.toLocaleString() + ' ' + tokLabel;
+    $('convVal').textContent = state.convInputTokens.toLocaleString() + ' ' + tokLabel;
+    $('outputVal').textContent = state.outputTokens.toLocaleString() + ' ' + tokLabel;
     const m = MODELS[state.modelKey];
     $('modelPrice').textContent = `$${m.input}/$${m.output}`;
 
-    // Update slider fill gradients
     const sliders = [
       { el: $('agents'), min: 1, max: 50 },
       { el: $('sessions'), min: 1, max: 200 },
@@ -978,19 +2167,19 @@
     const model = MODELS[state.modelKey];
     const r = calculate(state, model, state.cacheOn);
 
-    // Hero
     const saved = r.a.cost - r.c.cost;
     const pct = r.a.cost > 0 ? Math.round((saved / r.a.cost) * 100) : 0;
-    $('heroAmount').innerHTML = fmt$(saved) + '<span class="unit">/mo</span>';
-    $('heroAnnual').textContent = fmt$full(saved * 12) + '/year';
-    $('heroPct').textContent = `${pct}% vs. baseline`;
 
-    // Scenario A
+    // Hero
+    $('heroAmount').innerHTML = fmt$(saved) + '<span class="unit">' + t('perMonth') + '</span>';
+    $('heroAnnual').textContent = fmt$full(saved * 12) + t('perYear');
+    $('heroPct').innerHTML = `${pct}% <span>${t('heroPctSuffix')}</span>`;
+
+    // Scenarios
     $('costA').textContent = fmt$(r.a.cost);
     $('aInput').textContent = fmtTok(r.a.input);
     $('aOutput').textContent = fmtTok(r.a.output);
 
-    // Scenario B
     $('costB').textContent = fmt$(r.b.cost);
     $('bInput').textContent = fmtTok(r.b.input);
     $('bOutput').textContent = fmtTok(r.b.output);
@@ -998,20 +2187,19 @@
     const bSavePct = r.a.cost > 0 ? Math.round((bSave / r.a.cost) * 100) : 0;
     $('bSave').textContent = bSave > 0 ? `−${bSavePct}% (${fmt$(bSave)})` : '—';
 
-    // Scenario C
     $('costC').textContent = fmt$(r.c.cost);
     if (state.cacheOn) {
-      $('cWrite').textContent = `${r.c.cacheWrites} × ${state.contextTokens.toLocaleString()} tok`;
+      $('cWrite').textContent = `${r.c.cacheWrites} × ${state.contextTokens.toLocaleString()} ${t('tok')}`;
       $('cRead').textContent = fmtTok(r.c.cacheReadTokens);
     } else {
-      $('cWrite').textContent = 'disabled';
-      $('cRead').textContent = 'disabled';
+      const d = t('disabled');
+      $('cWrite').textContent = d;
+      $('cRead').textContent = d;
     }
     $('cOutput').textContent = fmtTok(r.b.output);
     const cSavePct = r.a.cost > 0 ? Math.round((saved / r.a.cost) * 100) : 0;
     $('cSave').textContent = saved > 0 ? `−${cSavePct}% (${fmt$(saved)})` : '—';
 
-    // Bars (relative to A)
     const maxCost = r.a.cost;
     if (maxCost > 0) {
       $('barA').style.width = '100%';
@@ -1019,10 +2207,168 @@
       $('barC').style.width = ((r.c.cost / maxCost) * 100) + '%';
     }
 
-    // Stats
-    $('statYear').textContent = fmt$full(saved * 12);
+    $('statYearVal').textContent = fmt$full(saved * 12);
     $('statAgent').textContent = state.agents > 0 ? fmt$(saved / state.agents) : '$0';
     $('statSessions').textContent = r.totalSessions.toLocaleString();
+
+    // ─── Scenario D + Levers ───
+    renderLevers(state, model, state.cacheOn, r);
+  }
+
+  // Compute scenario with selected levers applied
+  function computeScenarioD(baseInputs, baseModelKey, cacheOn, levers, batchPct) {
+    const effInputs = { ...baseInputs };
+    let effModelKey = baseModelKey;
+
+    if (levers.model) {
+      const cheaper = getCheaperModelKey(baseModelKey);
+      if (cheaper) effModelKey = cheaper;
+    }
+    const effModel = MODELS[effModelKey];
+
+    if (levers.context && baseInputs.contextTokens > 2000) {
+      effInputs.contextTokens = Math.max(1000, Math.floor(baseInputs.contextTokens * 0.5));
+    }
+    if (levers.output && baseInputs.outputTokens > 300) {
+      effInputs.outputTokens = 300;
+    }
+
+    const result = calculate(effInputs, effModel, cacheOn);
+    let cost = result.c.cost;
+
+    if (levers.batch) {
+      const p = batchPct / 100;
+      cost = cost * (1 - p + p * 0.5);
+    }
+
+    return { cost, modelKey: effModelKey };
+  }
+
+  // Marginal impact of a single lever (compared to Scenario C baseline)
+  function leverImpact(leverKey, baseInputs, baseModelKey, cacheOn, baselineCost) {
+    const single = { model: false, batch: false, context: false, output: false };
+    single[leverKey] = true;
+    const result = computeScenarioD(baseInputs, baseModelKey, cacheOn, single, state.batchPct);
+    return Math.max(0, baselineCost - result.cost);
+  }
+
+  function renderLevers(baseInputs, baseModel, cacheOn, r) {
+    const baselineC = r.c.cost;
+    const baselineA = r.a.cost;
+    const tokLabel = t('tok');
+
+    // ─── Lever 1: Model Downgrade ───
+    const cheaperKey = getCheaperModelKey(state.modelKey);
+    const modelEl = document.querySelector('[data-lever="model"]');
+    $('leverModelCurrent').textContent = baseModel.name;
+    if (cheaperKey) {
+      $('leverModelRec').textContent = MODELS[cheaperKey].name;
+      const impact = leverImpact('model', baseInputs, state.modelKey, cacheOn, baselineC);
+      $('leverModelImpact').textContent = fmt$(impact);
+      modelEl.classList.remove('disabled');
+    } else {
+      $('leverModelRec').textContent = t('leverAlreadyOptimal');
+      $('leverModelImpact').textContent = '$0';
+      modelEl.classList.add('disabled');
+      if (state.levers.model) {
+        state.levers.model = false;
+        modelEl.querySelector('.lever-switch').checked = false;
+      }
+    }
+
+    // ─── Lever 2: Batch API ───
+    $('batchPctVal').textContent = state.batchPct + '%';
+    const batchSlider = $('batchPct');
+    batchSlider.style.setProperty('--pct', state.batchPct + '%');
+    const batchImpact = leverImpact('batch', baseInputs, state.modelKey, cacheOn, baselineC);
+    $('leverBatchImpact').textContent = fmt$(batchImpact);
+
+    // ─── Lever 3: Context Compression ───
+    const ctxEl = document.querySelector('[data-lever="context"]');
+    $('leverContextCurrent').textContent = baseInputs.contextTokens.toLocaleString() + ' ' + tokLabel;
+    if (baseInputs.contextTokens > 2000) {
+      const target = Math.max(1000, Math.floor(baseInputs.contextTokens * 0.5));
+      $('leverContextTarget').textContent = target.toLocaleString() + ' ' + tokLabel;
+      const impact = leverImpact('context', baseInputs, state.modelKey, cacheOn, baselineC);
+      $('leverContextImpact').textContent = fmt$(impact);
+      ctxEl.classList.remove('disabled');
+    } else {
+      $('leverContextTarget').textContent = t('leverAlreadyOptimal');
+      $('leverContextImpact').textContent = '$0';
+      ctxEl.classList.add('disabled');
+      if (state.levers.context) {
+        state.levers.context = false;
+        ctxEl.querySelector('.lever-switch').checked = false;
+      }
+    }
+
+    // ─── Lever 4: Output Hard Cap ───
+    const outEl = document.querySelector('[data-lever="output"]');
+    $('leverOutputCurrent').textContent = baseInputs.outputTokens.toLocaleString() + ' ' + tokLabel;
+    if (baseInputs.outputTokens > 300) {
+      $('leverOutputTarget').textContent = '300 ' + tokLabel;
+      const impact = leverImpact('output', baseInputs, state.modelKey, cacheOn, baselineC);
+      $('leverOutputImpact').textContent = fmt$(impact);
+      outEl.classList.remove('disabled');
+    } else {
+      $('leverOutputTarget').textContent = t('leverAlreadyOptimal');
+      $('leverOutputImpact').textContent = '$0';
+      outEl.classList.add('disabled');
+      if (state.levers.output) {
+        state.levers.output = false;
+        outEl.querySelector('.lever-switch').checked = false;
+      }
+    }
+
+    // ─── Scenario D: combined result ───
+    const dResult = computeScenarioD(baseInputs, state.modelKey, cacheOn, state.levers, state.batchPct);
+    $('costD').textContent = fmt$(dResult.cost);
+
+    const dSavingsVsA = Math.max(0, baselineA - dResult.cost);
+    const dSavingsVsC = Math.max(0, baselineC - dResult.cost);
+    const dPctA = baselineA > 0 ? Math.round((dSavingsVsA / baselineA) * 100) : 0;
+    const dPctC = baselineC > 0 ? Math.round((dSavingsVsC / baselineC) * 100) : 0;
+    $('dSaveVsA').textContent = dSavingsVsA > 0 ? `−${dPctA}% (${fmt$(dSavingsVsA)})` : '—';
+    $('dSaveVsC').textContent = dSavingsVsC > 0 ? `−${dPctC}% (${fmt$(dSavingsVsC)})` : '—';
+
+    // Count active, non-disabled levers
+    let active = 0;
+    let total = 0;
+    ['model', 'batch', 'context', 'output'].forEach(k => {
+      const el = document.querySelector(`[data-lever="${k}"]`);
+      if (!el.classList.contains('disabled')) {
+        total++;
+        if (state.levers[k]) active++;
+      }
+    });
+    $('dActiveLevers').textContent = `${active} / ${total}`;
+
+    // Bar
+    if (baselineA > 0) {
+      $('barD').style.width = ((dResult.cost / baselineA) * 100) + '%';
+    }
+
+    // Update lever card active styling
+    ['model', 'batch', 'context', 'output'].forEach(k => {
+      const el = document.querySelector(`[data-lever="${k}"]`);
+      if (state.levers[k] && !el.classList.contains('disabled')) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
+
+    // Total savings callout (additional from active levers vs Scenario C)
+    $('maxSavings').textContent = fmt$(dSavingsVsC) + t('perMonth');
+  }
+
+  // ─── Language change ───
+  function changeLang(lang) {
+    if (!I18N[lang]) return;
+    currentLang = lang;
+    try { localStorage.setItem('cek-lang', lang); } catch (e) { /* ignore */ }
+    applyTranslations();
+    render(); // re-render so dynamic content gets new language
   }
 
   // ─── Event listeners ───
@@ -1036,6 +2382,37 @@
       state.cacheOn = btn.dataset.cache === 'on';
       render();
     });
+  });
+  $('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+  // ─── Lever event listeners ───
+  document.querySelectorAll('.lever-switch').forEach(sw => {
+    sw.addEventListener('change', (e) => {
+      const key = e.target.dataset.leverKey;
+      state.levers[key] = e.target.checked;
+      render();
+    });
+  });
+  $('batchPct').addEventListener('input', (e) => {
+    state.batchPct = parseInt(e.target.value);
+    render();
+  });
+  $('applyAllBtn').addEventListener('click', () => {
+    // If all available levers are on → turn all off. Otherwise turn all on.
+    const available = [];
+    document.querySelectorAll('.lever').forEach(el => {
+      if (!el.classList.contains('disabled')) {
+        available.push(el.dataset.lever);
+      }
+    });
+    const allOn = available.length > 0 && available.every(k => state.levers[k]);
+    const newState = !allOn;
+    available.forEach(k => {
+      state.levers[k] = newState;
+      const sw = document.querySelector(`[data-lever="${k}"] .lever-switch`);
+      if (sw) sw.checked = newState;
+    });
+    render();
   });
 
   // ─── Build pricing reference table ───
@@ -1052,7 +2429,9 @@
     tbody.appendChild(tr);
   });
 
-  // Initial render
+  // ─── Initial render ───
+  $('langSelect').value = currentLang;
+  applyTranslations();
   render();
 </script>
 
